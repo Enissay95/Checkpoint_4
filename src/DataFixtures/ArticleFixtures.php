@@ -21,10 +21,13 @@ class ArticleFixtures extends Fixture implements DependentFixtureInterface
             $article = new Article();
             $article->setTitle($faker->title());
             $article->setContent($faker->text());
+            $article->setTags($faker->word());
+            $article->setAdTime($faker->dateTime());
             $article->setUser($this->getReference('USER_' . $faker->unique()->numberBetween(1, 5)));
             $this->addReference('ARTICLE_' . $faker->unique()->numberBetween(6, 10), $article);
             $manager->persist($article);
         }
+        
         $manager->flush();
     }
 

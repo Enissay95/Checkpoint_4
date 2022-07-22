@@ -1,0 +1,61 @@
+{% extends 'layouts/layout_user.html.twig' %}
+
+{% block body %}
+
+<h2 class="mt-5" >User profil</h2>
+
+<hr>
+
+<div class="card mx-auto d-flex" style="width: 18rem;">
+
+  
+
+  <img class="card-img-top" src="https://picsum.photos/200/150/?random" alt="Card image cap">
+  <div class="card-body"> 
+    <figure class="profile">     
+        <img  src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description" class="profile-avatar" alt="">
+    </figure>                          
+  
+    
+    <h5 class="card-title mt-3">{{ app.user.firstname}}  {{app.user.lastname}}</h5>
+    <p class="card-text">Biography : {{ app.user.biography }}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Email : {{app.user.email}}</li>
+    <li class="list-group-item">Phone : {{app.user.phone}}</li>
+  </ul>
+  <div class="card-body">  
+
+    <a href="{{ path('user_edit', {'id': app.user.id}) }}"class="btn btn-primary">Edit</a>
+  </div>
+</div>
+
+<h2>Your Articles</h2>
+
+<hr>
+{% for art in app.user.articles %}
+
+<div class="all-articles ">
+ <div class="card text-center mt-4 mx-5">
+  <div class="card-header">
+    {{ art.AdTime|date('d-m-Y') }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Special title treatment : {{ art.title }}</h5>
+    <p class="card-text">{{ art.content }}. With supporting text below as a natural lead-in to additional content. </p>
+    <a href="#" class="btn btn-primary">Save</a>
+  </div>
+  <div class="card-footer text-muted">
+    <button type="button" class="btn btn-outline-primary">#{{ art.tags }}</button>
+    <button type="button" class="btn btn-outline-secondary">#Secondary</button>
+    <button type="button" class="btn btn-outline-success">#Success</button>
+    <button type="button" class="btn btn-outline-danger">#Danger</button>
+    <button type="button" class="btn btn-outline-warning">#Warning</button>
+    <button type="button" class="btn btn-outline-info">#Info</button>
+    <button type="button" class="btn btn-outline-dark">#Dark</button>
+  </div>
+ </div>  
+</div>
+
+{% endfor %}
+{% endblock %}

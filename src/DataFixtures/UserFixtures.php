@@ -8,10 +8,18 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 
-class UserFixtures extends Fixture
+
+class UserFixtures extends Fixture implements FixtureGroupInterface
 {
 
+    private UserPasswordHasherInterface $hasher;
+
+    public function __construct(UserPasswordHasherInterface $hasher)
+    {
+        $this->hasher = $hasher;
+    }
     
 
 
@@ -25,8 +33,9 @@ class UserFixtures extends Fixture
         for ($i = 0; $i < 5; $i++) {
             $user = new User();
             $user->setEmail($faker->email());
-            $user->setPassword($faker->password());
-            $user->setRole(['ROLE_USER']);
+            $password = $this->hasher->hashPassword($user, $faker->password());
+            $user->setPassword($password);
+            $user->setRoles(['ROLE_USER']);
             $user->setLastname($faker->lastName());
             $user->setFirstname($faker->firstName());
             $user->setPhone($faker->phoneNumber()); 
@@ -39,8 +48,9 @@ class UserFixtures extends Fixture
         
         $user = new User();
         $user->setEmail('med@gmail.com');
-        $user->setRole(['ROLE_ADMIN']);
-        $user->setPassword('med');
+        $user->setRoles(['ROLE_ADMIN']);
+        //$password = $this->hasher->hashPassword($user, 'med');
+        $user->setPassword('med');        
         $user->setLastname('yassine');
         $user->setFirstname('med');
         $user->setPhone('+33 6 25 23 26 02');
@@ -52,6 +62,11 @@ class UserFixtures extends Fixture
 
 
         $manager->flush();
+    }
+
+    public static function getGroups(): array
+    {
+        return ['group2'];
     }
 
 }

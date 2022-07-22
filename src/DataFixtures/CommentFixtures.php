@@ -6,9 +6,10 @@ use App\Entity\Comment;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Faker\Factory;
 
-class CommentFixtures extends Fixture implements DependentFixtureInterface
+class CommentFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -31,5 +32,10 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
           UserFixtures::class,
           ArticleFixtures::class,
         ];
+    }
+
+    public static function getGroups(): array
+    {
+        return ['group1'];
     }
 }

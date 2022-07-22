@@ -1,0 +1,11 @@
+{% extends 'layouts/layout_user.html.twig' %}
+
+
+{% block body %}
+    <h1>Edit your profil</h1>
+
+    {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('user_account') }}">back to account</a>
+
+{% endblock %}

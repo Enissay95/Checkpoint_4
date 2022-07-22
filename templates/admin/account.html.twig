@@ -1,0 +1,31 @@
+{% extends 'layouts/layout_admin.html.twig' %}
+
+{% block body %}
+
+<h2>User profil</h2>
+
+<div class="card mx-auto d-flex" style="width: 18rem;">
+
+  {% for user in app.user.articles %}{% endfor %}
+
+  <img class="card-img-top" src="https://picsum.photos/200/150/?random" alt="Card image cap">
+  <div class="card-body"> 
+    <figure class="profile">     
+        <img  src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description" class="profile-avatar" alt="">
+    </figure>                          
+  
+    
+    <h5 class="card-title mt-3">{{ app.user.firstname}}  {{app.user.lastname}}</h5>
+    <p class="card-text">Biography : {{ app.user.biography }}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Email : {{app.user.email}}</li>
+    <li class="list-group-item">Phone : {{app.user.phone}}</li>
+  </ul>
+  <div class="card-body">  
+
+    <a href="{{ path('admin_edit', {'id': app.user.id}) }}"class="btn btn-primary">Edit</a>
+  </div>
+</div>
+
+{% endblock %}
